@@ -1,7 +1,5 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // Resend free plan: use onboarding@resend.dev until your domain is verified
 const FROM_EMAIL = process.env.FROM_EMAIL ?? 'onboarding@resend.dev'
 const APP_NAME = 'Crypto Reporter'
@@ -10,6 +8,10 @@ export async function sendPasswordEmail(
   to: string,
   password: string
 ): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) throw new Error('RESEND_API_KEY is not set in environment')
+
+  const resend = new Resend(apiKey)
   const { error } = await resend.emails.send({
     from: `${APP_NAME} <${FROM_EMAIL}>`,
     to,
