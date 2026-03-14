@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Network } from '@/types/network'
 import { AddressInput } from '@/components/AddressInput'
 import { DateRangePicker } from '@/components/DateRangePicker'
@@ -15,6 +16,7 @@ type ReportInfo = {
 }
 
 export default function HomePage() {
+  const router = useRouter()
   const [address, setAddress] = useState('')
   const [network, setNetwork] = useState<Network | null>(null)
   const [dateFrom, setDateFrom] = useState('')
@@ -67,11 +69,23 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-lg space-y-6 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Crypto Reporter</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Генерация CSV-отчётов по транзакциям кошелька
-          </p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Crypto Reporter</h1>
+            <p className="text-sm text-gray-500 mt-1">
+              Генерация CSV-отчётов по транзакциям кошелька
+            </p>
+          </div>
+          <button
+            onClick={async () => {
+              await fetch('/api/auth/logout', { method: 'POST' })
+              router.push('/auth')
+              router.refresh()
+            }}
+            className="text-sm text-gray-500 hover:text-gray-700"
+          >
+            Выйти
+          </button>
         </div>
 
         <AddressInput onDetected={handleAddressDetected} />
