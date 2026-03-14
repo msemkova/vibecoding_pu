@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 import { randomBytes } from 'crypto'
 
-const SALT_ROUNDS = 12
+const SALT_ROUNDS = 10
 
 /** Generates a random human-readable password like "Kx7mP2nQ" */
 export function generatePassword(length = 10): string {

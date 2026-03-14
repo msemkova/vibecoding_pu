@@ -2,7 +2,8 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM_EMAIL = process.env.FROM_EMAIL ?? 'noreply@cryptoreporter.app'
+// Resend free plan: use onboarding@resend.dev until your domain is verified
+const FROM_EMAIL = process.env.FROM_EMAIL ?? 'onboarding@resend.dev'
 const APP_NAME = 'Crypto Reporter'
 
 export async function sendPasswordEmail(
