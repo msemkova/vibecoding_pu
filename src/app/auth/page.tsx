@@ -1,12 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 type Mode = 'login' | 'register'
 
 export default function AuthPage() {
-  const router = useRouter()
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -49,8 +47,7 @@ export default function AuthPage() {
       setError(data.error ?? 'Ошибка входа')
       return
     }
-    router.push('/')
-    router.refresh()
+    window.location.href = '/'
   }
 
   return (
